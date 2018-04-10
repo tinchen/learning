@@ -29,11 +29,11 @@
 		data: {
 			todos: todoStorage.fetch(),
 			newTodo: '',
-			editedTodo: null,
+			editingTodo: null,
 			visibility: 'all'
 		},
 
-		// watch todos change for localStorage persistence
+		// 當 todos 變數改變時，呼叫 localStorage 做存儲
 		watch: {
 			todos: {
 				deep: true,
@@ -41,7 +41,7 @@
 			}
 		},
 
-		// computed properties
+		// 當相依 data 一變，computed 結果也會隨之更新（不變時會 cache）
 		// http://vuejs.org/guide/computed.html
 		computed: {
 			filteredTodos: function () {
@@ -62,12 +62,11 @@
 			}
 		},
 
-		// methods that implement data logic.
-		// note there's no DOM manipulation here at all.
+		// 處理資料的邏輯處理，注意這裡都不會去變更 DOM 的部分
 		methods: {
 
-			pluralize: function (word, count) {
-				return word + (count === 1 ? '' : 's');
+			pluralize: function (count) {
+				return (count === 1 ? '只' : '還') + '剩下';
 			},
 
 			addTodo: function () {
@@ -86,14 +85,14 @@
 
 			editTodo: function (todo) {
 				this.beforeEditCache = todo.title;
-				this.editedTodo = todo;
+				this.editingTodo = todo;
 			},
 
 			doneEdit: function (todo) {
-				if (!this.editedTodo) {
+				if (!this.editingTodo) {
 					return;
 				}
-				this.editedTodo = null;
+				this.editingTodo = null;
 				todo.title = todo.title.trim();
 				if (!todo.title) {
 					this.removeTodo(todo);
@@ -101,7 +100,7 @@
 			},
 
 			cancelEdit: function (todo) {
-				this.editedTodo = null;
+				this.editingTodo = null;
 				todo.title = this.beforeEditCache;
 			},
 
