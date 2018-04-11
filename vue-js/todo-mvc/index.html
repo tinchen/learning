@@ -7,18 +7,8 @@
     <link rel="stylesheet" href="node_modules/todomvc-app-css/index.css">
     <style> [v-cloak] { display: none; } /* 防止頁面載入完成前出現 vuejs 的 {{變數}} 名稱 */</style>
   </head>
-  <body>
-    <section class="todoapp" v-cloak>
-      <header class="header">
-		  <h1>待辦清單</h1>
-      <!-- 
-        addTodo : keyup enter 時呼叫的 function
-        newTodo : 一個 data 變數
-      -->
-      <input class="new-todo" autofocus autocomplete="off"
-          placeholder="加入一個待辦事項吧！" 
-          @keyup.enter="addTodo" v-model="newTodo">
-	    </header>
+
+  <script type="text/x-template" id="todo-list-template">
       <!-- 當 todos array 有資料時，才會顯示 -->
       <section class="main" v-show="todos.length">
         <!-- 將此 checkbox 與 allDone data 變數做連結 -->
@@ -53,6 +43,23 @@
           </li>
         </ul>
       </section>
+  </script>
+
+  <body>
+    <section class="todoapp" v-cloak>
+      <header class="header">
+		    <h1>待辦清單</h1>
+        <!-- 
+          addTodo : keyup enter 時呼叫的 function
+          newTodo : 一個 data 變數
+        -->
+        <input class="new-todo" autofocus autocomplete="off"
+          placeholder="加入一個待辦事項吧！" 
+          @keyup.enter="addTodo" v-model="newTodo">
+	    </header>
+
+      <todo-list></todo-list>
+
       <footer class="footer" v-show="todos.length">
         <span class="todo-count">
           <!-- pluralize 是文字單複數轉換 function -->
