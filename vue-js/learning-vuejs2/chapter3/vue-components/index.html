@@ -10,7 +10,8 @@
 <template id="form">
   <div>
     <label for="name">What's your name?</label>
-    <input v-bind:value="value" type="text" id="name" v-on:input="onInput">
+    <input v-bind:value="value" type="text" 
+     id="name" v-on:input="onInput">
   </div>
 </template>
 
@@ -22,23 +23,41 @@
 <!--template for the greetings-->
 <template id="greetings">
   <div>
+    <form-component :value.sync="user"></form-component>
+    <p>
+      預設情況 data-binding 是單向，下層變更不會通知上層
+      可用 .sync 修飾符 + $emit update:value 來向上廣播資料變動
+    </p>
     <form-component v-model="user"></form-component>
+    <p>
+      v-model 会忽略所有表单元素的 value、checked、selected 特性的初始值，<br/>
+      而总是将 Vue 实例的数据作为数据来源
+      這裡用 v-model + $emit input 來向上廣播資料變動
+    </p>
     <hello-component :user="user"></hello-component>
+    用 :user="user" 或 v-bind:user="user" 與上層的 user 變數連結
+    <hello-component user="user"></hello-component>
+    若寫成 user="user" 就變成「靜態字串」與 :user="'user'" 同義
   </div>
 </template>
 
 <div id="app">
   <greetings-component></greetings-component>
+  <hr/>
+  <hello-component :user="user"></hello-component>
+  在 greetings-component 外，會連結到 app 層的 user 變數
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.0.3/vue.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.16/vue.js"></script>
 <script>
   Vue.component('form-component', {
     template: '#form',
     props: ['value'],
     methods: {
       onInput: function (event) {
-        this.$emit('input', event.target.value)
+        //console.log(event.target.value);
+        this.$emit('update:value', event.target.value);
+        this.$emit('input', event.target.value);
       }
     }
   });
@@ -63,7 +82,12 @@
   });
 
   new Vue({
-    el: '#app'
+    el: '#app',
+    data: function () {
+      return {
+        user: '#app'
+      }
+    }
   });
 </script>
 </body>
