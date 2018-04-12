@@ -1,6 +1,14 @@
 var data = {
-  items: [{ text: 'Bananas', checked: true }, { text: 'Apples', checked: false }],
-  title: 'My Shopping List',
+  items: [{
+      text: '香蕉',
+      checked: true
+    },
+    {
+      text: '蘋果',
+      checked: false
+    }
+  ],
+  title: '我的購物清單',
   newItem: ''
 };
 
@@ -9,9 +17,7 @@ new Vue({
   data: data,
   methods: {
     addItem: function () {
-      var text;
-
-      text = this.newItem.trim();
+      let text = this.newItem.trim();
       if (text) {
         this.items.push({
           text: text,

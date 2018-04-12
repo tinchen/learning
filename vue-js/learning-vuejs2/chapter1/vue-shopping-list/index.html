@@ -33,10 +33,12 @@
 <div id="app" class="container">
   <h2>{{ title }}</h2>
   <div class="input-group">
-    <input v-model="newItem" @keyup.enter="addItem" placeholder="add shopping list item" type="text"
-           class="form-control">
+    <input v-model="newItem" @keyup.enter="addItem" 
+           placeholder="新增一個購物項目" type="text"
+           class="form-control" title="按下 enter 新增！">
     <span class="input-group-btn">
-      <button @click="addItem" class="btn btn-default" type="button">Add!</button>
+      <button @click="addItem" class="btn btn-default" 
+              type="button">新增！</button>
     </span>
   </div>
   <ul>
@@ -50,11 +52,26 @@
   </ul>
   <div class="footer">
     <hr/>
-    <em>Change the title of your shopping list here</em>
+    在此變更 <em>購物清單標題</em>：
     <input v-model="title"/>
+    <hr/>
+    <ul>
+      <li>
+        ★ 購物清單標題：資料雙向連繫（binding）
+      </li>
+      <li>
+        ★ @keyup.enter 與 @click：呼叫 addItem method
+      </li>
+      <li>
+        ★ v-for：將 Array 迴圈顯示購物清單項目
+      </li>
+      <li>
+        ★ checkbox ＋ v-model：是否勾選
+      </li>      
+    </ul>
   </div>
 </div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.0.3/vue.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.16/vue.js"></script>
 <script src="script.js"></script>
 </body>
 </html>
