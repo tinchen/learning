@@ -1,0 +1,7 @@
+// "auth != null"
+{
+  "rules": {
+    ".read": true,
+    ".write": true
+  }
+}

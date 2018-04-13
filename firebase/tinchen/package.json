@@ -1,0 +1,11 @@
+{
+  "name": "Chat Room && Cloud Functions",
+  "version": "3.14",
+  "description": "Chat Room Web App && Cloud Functions for Firebase",
+  //"main": "server.js",
+  //"repository": "",
+  "author": "Tinchen <tin.chen@gmail.com>",
+  "dependencies": {
+    "googleapis": "*"
+  }
+}

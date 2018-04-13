@@ -2,3 +2,6 @@ vue-js/sell-app/build
 .editorconfig
 .babelrc
 .postcssrc.js
+firebase/qk-todos/node_modules
+.firebaserc
+firebase/tinchen/functions/node_modules

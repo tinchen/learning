@@ -1,0 +1,64 @@
+<html ng-app="chatApp">
+<head>
+  <meta name="robots" content="noindex">
+  <meta name="description" content="聊聊 - AngularJS 基本功能完整版＋檔案上傳">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>聊聊</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-cookies.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-sanitize.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/locale/zh-tw.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/3.8.0/firebase.js"></script>
+  <link rel="icon" type="image/png" sizes="16x16 32x32 64x64 128x128"
+        href="https://icons.iconarchive.com/icons/seanau/support-bubble/128/Support-Bubble-1-icon.png" />
+  <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"/>
+  <link rel="stylesheet" href="main.css"/>
+</head>
+<body>
+<div id="chat_window" class="chat_window" ng-controller="chatCtrl">
+  <div class="top_menu">
+    <div class="buttons">
+      <div class="button maximize" ng-click="maximize()"></div>
+      <div class="button close" ng-click="close()"></div>
+    </div>
+    <div class="title">
+      聊聊<span ng-show="author"> - {{ author }}</span>
+      <span class="full_screen"></span>
+    </div>
+  </div>
+  <ul class="messages">
+    <li class="message" ng-repeat="chat in chats" key="{{ chat.key }}" archived="{{ chat.archived }}"
+        ng-class="{ appeared: chat.appeared, left: !chat.isOwner, right: chat.isOwner }">
+      <div class="avatar"><span ng-bind="chat.author.charAt(0)"></span></div>
+      <div class="text_wrapper">
+        <span class="text" ng-model="chat.text" chat-text></span>
+        <span class="readed" ng-bind="chat.readed"></span>
+        <span class="time" ng-bind="chat.utime | moment"></span>
+        <span class="remove" ng-click="removeMessage(chat.key)"
+          ng-show="chat.isOwner && !chat.readed">✖ </span>
+      </div>
+    </li>
+  </ul>
+  <div class="bottom_wrapper clearfix">
+    <div class="message_input_wrapper">
+      <textarea class="message_input" ng-model="text"
+             placeholder="{{ placeholder }}"
+             ctrl-enter="sendMessage()"></textarea>
+    </div>
+    <div class="send_file" ng-click="sendFile()">
+      <div class="icon"></div>
+      <div class="text"></div>
+    </div>
+    <div class="send_message" ng-click="sendMessage()">
+      <div class="icon"></div>
+      <div class="text"></div>
+    </div>
+  </div>
+  <input type="file" class="upload_file">
+</div>
+<script src="screenfull.js"></script>
+<script src="main.js"></script>
+</body>
+</html>
